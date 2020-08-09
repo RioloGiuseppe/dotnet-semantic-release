@@ -20,11 +20,11 @@ namespace SemanticRelease.CommitAnalyzer
         {
             var releaseType = ReleaseType.NONE;
 
-            var multiLineIgnoreCase = RegexOptions.IgnoreCase | RegexOptions.Singleline;
+            var multiLineIgnoreCase = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant;
 
-            var majorRelease = new Regex("(BREAKING)", RegexOptions.Singleline);
-            var minorRelease = new Regex(@"(feat:|feature:|feat\(.*\))", multiLineIgnoreCase);
-            var patchRelease = new Regex(@"(fix|perf|security)(\(.*\))?:", multiLineIgnoreCase);
+            var majorRelease = new Regex(@"(major|breaking|break)((\s+)|(:+|-+|\s+))(\(.*\):?)?", multiLineIgnoreCase);
+            var minorRelease = new Regex(@"(feat|feature)((\s+)|(:+|-+|\s+))(\(.*\):?)?", multiLineIgnoreCase);
+            var patchRelease = new Regex(@"(fix|perf|security)((\s+)|(:+|-+|\s+))(\(.*\):?)?", multiLineIgnoreCase);
 
             foreach (var commit in _commitsSinceRelease)
             {
